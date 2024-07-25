@@ -1,0 +1,20 @@
+;queue implementation
+  (define  make-q 
+  (let (( prev '()))
+  (define (env proc . args)
+    (cond
+      [(eqv? proc 'enque) (set! prev(cons  (car args) prev)) (reverse prev)]
+      [(eqv? proc 'deque) 
+       (if (null? prev)  '()
+          (set! prev  (reverse (cdr (reverse prev))))  )  (reverse prev)  ]
+      [(eqv? proc 'rear) (list-ref prev  (len prev)) ]
+      [(eqv? proc 'front) (car prev)  ]
+      [else
+       'input-error]
+         )) env))
+  
+  (define len
+    (λ (prev)
+      (if (null? prev) -1
+      (+ 1 (len (cdr prev))))))
+  
